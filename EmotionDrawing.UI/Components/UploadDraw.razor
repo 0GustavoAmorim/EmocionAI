@@ -1,0 +1,316 @@
+﻿@namespace EmotionDrawing.UI.Components
+@using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models
+@using EmotionDrawing.UI.Services.Interfaces
+@using System.IO
+@using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction
+@using Microsoft.AspNetCore.Components.Forms
+@inject ICustomVisionService CustomVisionService
+@rendermode InteractiveServer
+
+<style>
+    .kids-container {
+        background-color: #f8f7ff;
+        border-radius: 20px;
+        border: 3px dashed #8c52ff;
+    }
+    
+    .kid-title {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        color: #5b3e96;
+        text-shadow: 1px 1px 1px #d1c5ff;
+    }
+    
+    .drawing-frame {
+        border: 8px solid #ffde59;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    
+    .emotion-card {
+        border-radius: 15px;
+        background-color: #fff6e6;
+        border: none;
+    }
+    
+    .emotion-header {
+        background-color: #ffb347;
+        border-radius: 15px 15px 0 0;
+    }
+    
+    .upload-btn {
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        padding: 10px 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+    
+    .upload-btn:hover {
+        transform: scale(1.05);
+    }
+    
+    .analyze-btn {
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        padding: 10px 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s;
+    }
+    
+    .analyze-btn:hover {
+        transform: scale(1.05);
+    }
+    
+    .emotion-icon {
+        font-size: 1.5rem;
+        margin-right: 8px;
+    }
+    
+    .emotion-progress {
+        height: 18px;
+        border-radius: 9px;
+    }
+    
+    .emotion-item {
+        margin-bottom: 12px;
+        border-radius: 10px;
+        padding: 8px;
+        transition: background-color 0.3s;
+    }
+    
+    .emotion-item:hover {
+        background-color: #fff0d1;
+    }
+    
+    .emotion-name {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+</style>
+
+<MudContainer MaxWidth="MaxWidth.Medium" Class="d-flex justify-center mt-6">
+    <MudPaper Class="pa-6 kids-container" Elevation="3" Style="width: 100%">
+        <MudGrid Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="4">
+            <MudItem xs="12" Class="text-center">
+                <MudText Typo="Typo.h4" Class="kid-title">
+                    <MudIcon Icon="@Icons.Material.Filled.Brush" Color="Color.Secondary" Class="mr-2" />
+                    Vamos Analisar seu Desenho!
+                </MudText>
+                <MudText Typo="Typo.subtitle1" Color="Color.Secondary">
+                    Descubra qual emoção seu desenho expressa
+                </MudText>
+            </MudItem>
+
+            <MudItem xs="12" Class="d-flex justify-center">
+                <InputFile id="fileInput" OnChange="UploadFiles" accept=".jpg,.jpeg,.png" class="d-none" />
+                <MudButton HtmlTag="label"
+                           Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           StartIcon="@Icons.Material.Filled.CloudUpload"
+                           for="fileInput"
+                           Class="upload-btn">
+                    Escolher Desenho
+                </MudButton>
+
+                @if (!string.IsNullOrEmpty(fileErrorMessage))
+                {
+                    <MudAlert Severity="Severity.Error" Class="mt-3" Variant="Variant.Filled" Dense="true">
+                        @fileErrorMessage
+                    </MudAlert>
+                }
+            </MudItem>
+
+            @if (selectedFile != null)
+            {
+                <MudItem xs="12" Style="max-width: 350px; margin: 0 auto;">
+                    <MudPaper Class="d-flex justify-center pa-3 drawing-frame">
+                        <MudImage Src="@imageDataUrl" Alt="Seu desenho" Width="300" Height="300" ObjectFit="ObjectFit.Contain" />
+                    </MudPaper>
+                    
+                    <MudText Align="Align.Center" Class="mt-2 kid-title" Typo="Typo.body1">
+                        Muito legal seu desenho!
+                    </MudText>
+                </MudItem>
+                
+                <MudItem xs="12" Class="d-flex justify-center mt-2">
+                    <MudButton Variant="Variant.Filled" 
+                              Color="Color.Secondary" 
+                              OnClick="AnalyzeImage" 
+                              Disabled="@isAnalyzing"
+                              Class="analyze-btn">
+                        @if (isAnalyzing)
+                        {
+                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                            <MudText Class="ms-2">Descobrindo a emoção...</MudText>
+                        }
+                        else
+                        {
+                            <MudIcon Icon="@Icons.Material.Filled.Psychology" Class="mr-2" />
+                            <MudText>Ver Emoção do Desenho</MudText>
+                        }
+                    </MudButton>
+                </MudItem>
+            }
+
+            @if (resultPredictions != null && resultPredictions.Count > 0)
+            {
+                <MudItem xs="12">
+                    <MudCard Class="emotion-card" Elevation="2">
+                        <MudCardHeader Class="emotion-header">
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h5" Class="kid-title">
+                                    <MudIcon Icon="@Icons.Material.Filled.EmojiEmotions" Class="mr-2" />
+                                    Emoções Encontradas
+                                </MudText>
+                                <MudText Typo="Typo.body2">Veja o que seu desenho expressa</MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                        <MudCardContent Class="pa-4">
+                            <MudItem xs="12">
+                                <MudCard>
+                                    <MudCardHeader>
+                                        <MudText Typo="Typo.h6">Resultados da Análise</MudText>
+                                    </MudCardHeader>
+                                    <MudCardContent>
+                                        <MudList T="PredictionModel" Dense="true">
+                                            @foreach (var prediction in resultPredictions.OrderByDescending(p => p.Probability))
+                                            {
+                                                <MudListItem>
+                                                    <MudGrid>
+                                                        <MudItem xs="6">
+                                                            <MudText>@prediction.TagName</MudText>
+                                                        </MudItem>
+                                                        <MudItem xs="6">
+                                                            <MudProgressLinear Color="Color.Info"
+                                                                               Value="@(prediction.Probability * 100)"
+                                                                               Class="my-2">
+                                                                @($"{prediction.Probability:P1}")
+                                                            </MudProgressLinear>
+                                                        </MudItem>
+                                                    </MudGrid>
+                                                </MudListItem>
+                                            }
+                                        </MudList>
+                                    </MudCardContent>
+                                </MudCard>
+                            </MudItem>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+            }
+        </MudGrid>
+    </MudPaper>
+</MudContainer>
+
+@code {
+    private IBrowserFile? selectedFile;
+    private string? imageDataUrl;
+    private string fileErrorMessage = "";
+    private bool isAnalyzing = false;
+    private IList<PredictionModel>? resultPredictions;
+
+    private async Task UploadFiles(InputFileChangeEventArgs e)
+    {
+        fileErrorMessage = "";
+        resultPredictions = null;
+
+        if (e.File == null)
+        {
+            fileErrorMessage = "Ops! Nenhum desenho foi selecionado.";
+            return;
+        }
+
+        // Validar tamanho e tipo do arquivo
+        if (e.File.Size > 4 * 1024 * 1024) // 4MB
+        {
+            fileErrorMessage = "Seu desenho é muito grande! O tamanho máximo é 4MB.";
+            return;
+        }
+
+        if (!e.File.ContentType.Contains("image"))
+        {
+            fileErrorMessage = "Isso não parece ser uma imagem. Tente enviar um desenho.";
+            return;
+        }
+
+        selectedFile = e.File;
+
+        // Converter a imagem para visualização
+        var buffer = new byte[selectedFile.Size];
+        await selectedFile.OpenReadStream().ReadAsync(buffer);
+        imageDataUrl = $"data:{selectedFile.ContentType};base64,{Convert.ToBase64String(buffer)}";
+    }
+
+    private async Task AnalyzeImage()
+    {
+        if (selectedFile == null) return;
+
+        try
+        {
+            isAnalyzing = true;
+            
+            // Criar um stream de memória com a imagem
+            using var stream = selectedFile.OpenReadStream(maxAllowedSize: 4 * 1024 * 1024);
+            using var memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+            memoryStream.Position = 0;
+            
+            // Enviar para análise no Custom Vision
+            var result = await CustomVisionService.ClassificarImagemAsync(memoryStream);
+            resultPredictions = result.Predictions;
+        }
+        catch (Exception ex)
+        {
+            fileErrorMessage = $"Ops! Não conseguimos analisar seu desenho: {ex.Message}";
+        }
+        finally
+        {
+            isAnalyzing = false;
+        }
+    }
+
+    private string GetEmotionIcon(string emotion)
+    {
+        return emotion.ToLower() switch
+        {
+            var e when e.Contains("feliz") || e.Contains("alegr") => Icons.Material.Filled.SentimentVerySatisfied,
+            var e when e.Contains("triste") => Icons.Material.Filled.SentimentVeryDissatisfied,
+            var e when e.Contains("raiva") || e.Contains("brav") => Icons.Material.Filled.Whatshot,
+            var e when e.Contains("medo") || e.Contains("assust") => Icons.Material.Filled.PriorityHigh,
+            var e when e.Contains("surpres") => Icons.Material.Filled.FlashOn,
+            var e when e.Contains("nojo") => Icons.Material.Filled.Sick,
+            _ => Icons.Material.Filled.Face
+        };
+    }
+
+    private Color GetEmotionColor(string emotion)
+    {
+        return emotion.ToLower() switch
+        {
+            var e when e.Contains("feliz") || e.Contains("alegr") => Color.Success,
+            var e when e.Contains("triste") => Color.Info,
+            var e when e.Contains("raiva") || e.Contains("brav") => Color.Error,
+            var e when e.Contains("medo") || e.Contains("assust") => Color.Warning,
+            var e when e.Contains("surpres") => Color.Tertiary,
+            var e when e.Contains("nojo") => Color.Dark,
+            _ => Color.Default
+        };
+    }
+
+    private string GetEmotionDisplayName(string emotion)
+    {
+        return emotion.ToLower() switch
+        {
+            var e when e.Contains("feliz") || e.Contains("alegr") => "Felicidade",
+            var e when e.Contains("triste") => "Tristeza",
+            var e when e.Contains("raiva") || e.Contains("brav") => "Raiva",
+            var e when e.Contains("medo") || e.Contains("assust") => "Medo",
+            var e when e.Contains("surpres") => "Surpresa",
+            var e when e.Contains("nojo") => "Nojo",
+            _ => emotion
+        };
+    }
+}
