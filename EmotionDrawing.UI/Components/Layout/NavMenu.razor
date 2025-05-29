@@ -1,10 +1,55 @@
-﻿
-<MudNavMenu>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
-    
-    <MudNavLink Href="weather" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.List">Weather</MudNavLink>
+﻿@using MudBlazor
 
-</MudNavMenu>
+<!-- Menu horizontal para telas médias e grandes -->
+<MudHidden Breakpoint="Breakpoint.SmAndDown" Implementation="HiddenImplementation.Css">
+    <MudNavMenu Class="nav-menu-horizontal">
+        <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home" Class="nav-link-item">
+            Início
+        </MudNavLink>
+        <MudNavLink Href="/tecnologias" Icon="@Icons.Material.Filled.Code" Class="nav-link-item">
+            Tecnologias
+        </MudNavLink>
+        <MudNavLink Href="/ideia" Icon="@Icons.Material.Filled.Lightbulb" Class="nav-link-item">
+            Ideia
+        </MudNavLink>
+    </MudNavMenu>
+</MudHidden>
 
+<!-- Menu hamburguer para telas pequenas -->
+<MudHidden Breakpoint="Breakpoint.MdAndUp" Implementation="HiddenImplementation.Css">
+    <MudMenu Icon="@Icons.Material.Filled.Menu" Color="Color.Secondary" Dense="true">
+        <MudMenuItem Href="/" Icon="@Icons.Material.Filled.Home">Início</MudMenuItem>
+        <MudMenuItem Href="/tecnologias" Icon="@Icons.Material.Filled.Code">Tecnologias</MudMenuItem>
+        <MudMenuItem Href="/ideia" Icon="@Icons.Material.Filled.Lightbulb">Ideia</MudMenuItem>
+    </MudMenu>
+</MudHidden>
 
+<style>
+    .nav-menu-horizontal {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 24px;
+        background: transparent;
+    }
+
+    .nav-link-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        font-size: 1.08rem;
+        border-radius: 18px;
+        padding: 6px 16px;
+        color: #8c52ff;
+        transition: background 0.2s, color 0.2s;
+        white-space: nowrap;
+    }
+
+    .mud-nav-link.mud-nav-link-active,
+    .mud-nav-link:hover {
+        background: #f3eaff;
+        color: #5b3e96;
+        text-decoration: none;
+    }
+</style>

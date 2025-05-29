@@ -8,100 +8,170 @@
 @rendermode InteractiveServer
 
 <style>
+    body, .kids-bg {
+        background: linear-gradient(135deg, #f5f9ff 60%, #ffe7fa 100%);
+        min-height: 100vh;
+    }
+
     .kids-container {
-        background-color: #f8f7ff;
-        border-radius: 20px;
-        border: 3px dashed #8c52ff;
+        background: url('/images/bg-upload-image.png') no-repeat center top, linear-gradient(135deg, #f8f7ff 80%, #ffe7fa 100%);
+        background-size: cover, cover;
+        border-radius: 30px;
+        border: 4px dashed #8c52ff;
+        box-shadow: 0 8px 32px rgba(140,82,255,0.08);
+        position: relative;
+        overflow: hidden;
     }
-    
+
     .kid-title {
-        font-family: 'Comic Sans MS', cursive, sans-serif;
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
         color: #5b3e96;
-        text-shadow: 1px 1px 1px #d1c5ff;
+        text-shadow: 2px 2px 6px #e0d6ff;
+        letter-spacing: 1px;
     }
-    
+
     .drawing-frame {
-        border: 8px solid #ffde59;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        border: 10px solid #ffde59;
+        border-radius: 20px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        background: #fffbe7;
+        margin-bottom: 8px;
     }
-    
+
+    .speech-bubble {
+        background: #fff6e6;
+        border-radius: 25px 25px 25px 0;
+        padding: 18px 24px;
+        font-size: 1.1rem;
+        color: #7a5fa0;
+        box-shadow: 0 2px 8px rgba(255,179,71,0.08);
+        margin-bottom: 18px;
+        display: inline-block;
+        position: relative;
+        animation: bounce-in 0.7s;
+    }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            bottom: -18px;
+            width: 0;
+            height: 0;
+            border-top: 18px solid #fff6e6;
+            border-right: 18px solid transparent;
+        }
+
+    @@keyframes bounce-in {
+        0% {
+            transform: scale(0.7);
+            opacity: 0;
+        }
+
+        80% {
+            transform: scale(1.05);
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .upload-btn, .analyze-btn {
+        border-radius: 30px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        padding: 12px 28px;
+        background: linear-gradient(90deg, #ffb347 0%, #8c52ff 100%);
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(140,82,255,0.10);
+        transition: transform 0.2s, box-shadow 0.2s;
+        margin: 0 8px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .upload-btn::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: url('data:image/svg+xml;utf8,<svg width="28" height="28" xmlns="http://www.w3.org/2000/svg"><g><rect fill="none" height="28" width="28"/><path d="M6 22l1.5-4.5L22 6.5l-4.5-4.5L3 17.5 6 22z" fill="%23ffde59" stroke="%238c52ff" stroke-width="1.5"/><rect x="19" y="3" width="6" height="6" rx="1.5" fill="%238c52ff" opacity="0.2"/></g></svg>') no-repeat center center;
+            background-size: contain;
+            pointer-events: none;
+        }
+
+        .upload-btn span {
+            margin-left: 32px;
+        }
+
+        .upload-btn:hover, .analyze-btn:hover {
+            transform: scale(1.07) rotate(-2deg);
+            box-shadow: 0 8px 24px rgba(140,82,255,0.18);
+        }
+
     .emotion-card {
-        border-radius: 15px;
-        background-color: #fff6e6;
-        border: none;
+        border-radius: 20px;
+        background: #fff6e6;
+        border: 2px solid #ffde59;
+        box-shadow: 0 2px 12px rgba(255,222,89,0.10);
     }
-    
+
     .emotion-header {
-        background-color: #ffb347;
-        border-radius: 15px 15px 0 0;
+        background: linear-gradient(90deg, #ffde59 60%, #ffb347 100%);
+        border-radius: 20px 20px 0 0;
+        color: #5b3e96;
     }
-    
-    .upload-btn {
-        border-radius: 25px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        padding: 10px 20px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: transform 0.2s;
-    }
-    
-    .upload-btn:hover {
-        transform: scale(1.05);
-    }
-    
-    .analyze-btn {
-        border-radius: 25px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        padding: 10px 20px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        transition: transform 0.2s;
-    }
-    
-    .analyze-btn:hover {
-        transform: scale(1.05);
-    }
-    
+
     .emotion-icon {
-        font-size: 1.5rem;
-        margin-right: 8px;
+        font-size: 2rem;
+        margin-right: 10px;
+        vertical-align: middle;
     }
-    
+
     .emotion-progress {
-        height: 18px;
-        border-radius: 9px;
+        height: 22px;
+        border-radius: 11px;
+        background: #f5f9ff;
     }
-    
+
     .emotion-item {
-        margin-bottom: 12px;
-        border-radius: 10px;
-        padding: 8px;
+        margin-bottom: 14px;
+        border-radius: 12px;
+        padding: 10px;
+        background: #fffbe7;
         transition: background-color 0.3s;
-    }
-    
-    .emotion-item:hover {
-        background-color: #fff0d1;
-    }
-    
-    .emotion-name {
-        font-family: 'Comic Sans MS', cursive, sans-serif;
         font-size: 1.1rem;
+    }
+
+        .emotion-item:hover {
+            background-color: #ffe7fa;
+        }
+
+    .emotion-name {
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        font-size: 1.15rem;
         font-weight: bold;
+        color: #8c52ff;
     }
 </style>
 
-<MudContainer MaxWidth="MaxWidth.Medium" Class="d-flex justify-center mt-6">
-    <MudPaper Class="pa-6 kids-container" Elevation="3" Style="width: 100%">
+<MudContainer MaxWidth="MaxWidth.Medium" Class="d-flex justify-center mt-6 kids-bg">
+    <MudPaper Class="pa-7 kids-container" Elevation="4" Style="width: 100%; position:relative;">
         <MudGrid Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="4">
             <MudItem xs="12" Class="text-center">
-                <MudText Typo="Typo.h4" Class="kid-title">
+                <MudText Typo="Typo.h3" Class="kid-title mb-1">
                     <MudIcon Icon="@Icons.Material.Filled.Brush" Color="Color.Secondary" Class="mr-2" />
-                    Vamos Analisar seu Desenho!
+                    Análise o Desenho aqui!
                 </MudText>
-                <MudText Typo="Typo.subtitle1" Color="Color.Secondary">
-                    Descubra qual emoção seu desenho expressa
-                </MudText>
+                <div class="speech-bubble">
+                    <MudIcon Icon="@Icons.Material.Filled.Lightbulb" Color="Color.Warning" Class="mr-1" />
+                    Envie um desenho feito pela criança e descubra as emoções presentes!
+                </div>
             </MudItem>
 
             <MudItem xs="12" Class="d-flex justify-center">
@@ -109,10 +179,9 @@
                 <MudButton HtmlTag="label"
                            Variant="Variant.Filled"
                            Color="Color.Primary"
-                           StartIcon="@Icons.Material.Filled.CloudUpload"
                            for="fileInput"
                            Class="upload-btn">
-                    Escolher Desenho
+                    <span>Escolher Desenho</span>
                 </MudButton>
 
                 @if (!string.IsNullOrEmpty(fileErrorMessage))
@@ -129,27 +198,26 @@
                     <MudPaper Class="d-flex justify-center pa-3 drawing-frame">
                         <MudImage Src="@imageDataUrl" Alt="Seu desenho" Width="300" Height="300" ObjectFit="ObjectFit.Contain" />
                     </MudPaper>
-                    
                     <MudText Align="Align.Center" Class="mt-2 kid-title" Typo="Typo.body1">
-                        Muito legal seu desenho!
+                        <MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Warning" Class="mr-1" />
+                        Que desenho incrível!
                     </MudText>
                 </MudItem>
-                
                 <MudItem xs="12" Class="d-flex justify-center mt-2">
-                    <MudButton Variant="Variant.Filled" 
-                              Color="Color.Secondary" 
-                              OnClick="AnalyzeImage" 
-                              Disabled="@isAnalyzing"
-                              Class="analyze-btn">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Secondary"
+                               OnClick="AnalyzeImage"
+                               Disabled="@isAnalyzing"
+                               Class="analyze-btn">
                         @if (isAnalyzing)
                         {
                             <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
-                            <MudText Class="ms-2">Descobrindo a emoção...</MudText>
+                            <MudText Class="ms-2">Analisando...</MudText>
                         }
                         else
                         {
                             <MudIcon Icon="@Icons.Material.Filled.Psychology" Class="mr-2" />
-                            <MudText>Ver Emoção do Desenho</MudText>
+                            <MudText>Ver Emoções</MudText>
                         }
                     </MudButton>
                 </MudItem>
@@ -165,38 +233,30 @@
                                     <MudIcon Icon="@Icons.Material.Filled.EmojiEmotions" Class="mr-2" />
                                     Emoções Encontradas
                                 </MudText>
-                                <MudText Typo="Typo.body2">Veja o que seu desenho expressa</MudText>
+                                <MudText Typo="Typo.body2">Veja o que o desenho expressa:</MudText>
                             </CardHeaderContent>
                         </MudCardHeader>
                         <MudCardContent Class="pa-4">
-                            <MudItem xs="12">
-                                <MudCard>
-                                    <MudCardHeader>
-                                        <MudText Typo="Typo.h6">Resultados da Análise</MudText>
-                                    </MudCardHeader>
-                                    <MudCardContent>
-                                        <MudList T="PredictionModel" Dense="true">
-                                            @foreach (var prediction in resultPredictions.OrderByDescending(p => p.Probability))
-                                            {
-                                                <MudListItem>
-                                                    <MudGrid>
-                                                        <MudItem xs="6">
-                                                            <MudText>@prediction.TagName</MudText>
-                                                        </MudItem>
-                                                        <MudItem xs="6">
-                                                            <MudProgressLinear Color="Color.Info"
-                                                                               Value="@(prediction.Probability * 100)"
-                                                                               Class="my-2">
-                                                                @($"{prediction.Probability:P1}")
-                                                            </MudProgressLinear>
-                                                        </MudItem>
-                                                    </MudGrid>
-                                                </MudListItem>
-                                            }
-                                        </MudList>
-                                    </MudCardContent>
-                                </MudCard>
-                            </MudItem>
+                            <MudList T="PredictionModel" Dense="true">
+                                @foreach (var prediction in resultPredictions.OrderByDescending(p => p.Probability))
+                                {
+                                    <MudListItem Class="emotion-item">
+                                        <MudGrid>
+                                            <MudItem xs="5" Class="d-flex align-center">
+                                                <MudIcon Icon="@GetEmotionIcon(prediction.TagName)" Color="@GetEmotionColor(prediction.TagName)" Class="emotion-icon" />
+                                                <span class="emotion-name">@GetEmotionDisplayName(prediction.TagName)</span>
+                                            </MudItem>
+                                            <MudItem xs="7">
+                                                <MudProgressLinear Color="@GetEmotionColor(prediction.TagName)"
+                                                                   Value="@(prediction.Probability * 100)"
+                                                                   Class="emotion-progress">
+                                                    @($"{prediction.Probability:P1}")
+                                                </MudProgressLinear>
+                                            </MudItem>
+                                        </MudGrid>
+                                    </MudListItem>
+                                }
+                            </MudList>
                         </MudCardContent>
                     </MudCard>
                 </MudItem>
@@ -251,13 +311,13 @@
         try
         {
             isAnalyzing = true;
-            
+
             // Criar um stream de memória com a imagem
             using var stream = selectedFile.OpenReadStream(maxAllowedSize: 4 * 1024 * 1024);
             using var memoryStream = new MemoryStream();
             await stream.CopyToAsync(memoryStream);
             memoryStream.Position = 0;
-            
+
             // Enviar para análise no Custom Vision
             var result = await CustomVisionService.ClassificarImagemAsync(memoryStream);
             resultPredictions = result.Predictions;

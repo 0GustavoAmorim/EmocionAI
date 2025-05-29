@@ -1,0 +1,38 @@
+﻿@* Componente de navegação principal *@
+<nav class="main-header-nav">
+    <MudIcon Icon="@Icons.Material.Filled.ChildCare" Color="Color.Secondary" Size="Size.Large" class="me-2" />
+    <a class="nav-link" href="/">Início</a>
+    <a class="nav-link" href="/tecnologias">Tecnologias</a>
+    <a class="nav-link" href="/tecnologias#ideia">Como Surgiu</a>
+</nav>
+
+<style>
+    .main-header-nav {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 0 0 32px;
+        height: 64px;
+        background: transparent;
+        margin-bottom: 12px;
+        gap: 18px;
+    }
+
+        .main-header-nav .nav-link {
+            font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+            color: #8c52ff;
+            font-size: 1.08rem;
+            text-decoration: none;
+            margin-right: 18px;
+            padding: 6px 16px;
+            border-radius: 18px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+            .main-header-nav .nav-link:hover, .main-header-nav .nav-link.active {
+                background: #f3eaff;
+                color: #5b3e96;
+                text-decoration: none;
+            }
+</style>

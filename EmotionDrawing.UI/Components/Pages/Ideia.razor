@@ -1,0 +1,275 @@
+﻿@page "/ideia"
+@rendermode InteractiveServer
+
+<PageTitle>Tecnologias & Sobre - EmocionAI</PageTitle>
+
+<style>
+    body, .tech-bg {
+        background: linear-gradient(120deg, #f5f9ff 60%, #ffe7fa 100%);
+        min-height: 100vh;
+    }
+
+    .tech-section {
+        margin-top: 32px;
+    }
+
+    .kid-title {
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        color: #5b3e96;
+        text-shadow: 2px 2px 6px #e0d6ff;
+        letter-spacing: 1px;
+    }
+
+    .context-card, .idea-card {
+        background: #fffbe7;
+        border-radius: 28px;
+        box-shadow: 0 4px 24px rgba(140,82,255,0.08);
+        padding: 36px 32px 32px 32px;
+        margin-bottom: 32px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .context-title, .idea-title {
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        color: #8c52ff;
+        font-size: 2rem;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 8px #e0d6ff;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .context-highlight {
+        background: #f3eaff;
+        border-left: 6px solid #8c52ff;
+        border-radius: 16px;
+        padding: 18px 24px;
+        margin: 18px 0;
+        color: #5b3e96;
+        font-size: 1.12rem;
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .context-paragraph, .idea-paragraph {
+        color: #7a5fa0;
+        font-size: 1.08rem;
+        margin-bottom: 16px;
+        line-height: 1.7;
+    }
+
+    .context-quote {
+        font-style: italic;
+        color: #8c52ff;
+        background: #f8f3ff;
+        border-left: 4px solid #8c52ff;
+        padding: 12px 20px;
+        border-radius: 12px;
+        margin: 18px 0;
+        font-size: 1.08rem;
+    }
+
+    .idea-sub {
+        color: #5b3e96;
+        font-size: 1.15rem;
+        margin-bottom: 18px;
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+    }
+
+    .idea-list {
+        margin-bottom: 16px;
+        margin-left: 0;
+        padding-left: 1.2em;
+        color: #5b3e96;
+        font-size: 1.08rem;
+    }
+
+        .idea-list li {
+            margin-bottom: 6px;
+            list-style: disc;
+        }
+
+    .idea-emotions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-bottom: 18px;
+    }
+
+    .emotion-badge {
+        background: #f3eaff;
+        color: #8c52ff;
+        border-radius: 16px;
+        padding: 8px 18px;
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        font-size: 1.05rem;
+        box-shadow: 0 2px 8px rgba(140,82,255,0.06);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .benefits-highlight {
+        background: linear-gradient(90deg, #fff6e6 80%, #ffe7fa 100%);
+        border-left: 6px solid #8c52ff;
+        border-radius: 18px;
+        padding: 28px 28px 24px 32px;
+        margin-top: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 2px 12px rgba(140,82,255,0.08);
+    }
+
+    .benefits-title {
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        color: #8c52ff;
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .benefits-list {
+        color: #5b3e96;
+        font-size: 1.08rem;
+        margin-bottom: 0;
+        margin-left: 0;
+        padding-left: 1.2em;
+    }
+
+        .benefits-list li {
+            margin-bottom: 8px;
+            list-style: disc;
+        }
+
+    .tech-card {
+        border-radius: 18px;
+        background: #f5f9ff;
+        box-shadow: 0 2px 8px rgba(140,82,255,0.06);
+        transition: all 0.3s;
+        height: 100%;
+    }
+
+        .tech-card:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 24px rgba(140,82,255,0.12);
+        }
+</style>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="tech-bg">
+    <MudGrid>
+        <!-- Arteterapia e Hospital do Juquery -->
+        <MudItem xs="12" class="tech-section">
+            <div class="context-card">
+                <div class="context-title">
+                    <MudIcon Icon="@Icons.Material.Filled.Museum" Color="Color.Secondary" Size="Size.Large" />
+                    Arteterapia, Hospital do Juquery e a Inspiração do Projeto
+                </div>
+                <div class="context-highlight">
+                    <MudIcon Icon="@Icons.Material.Filled.HistoryEdu" Color="Color.Primary" />
+                    Um marco na história da saúde mental brasileira
+                </div>
+                <div class="context-paragraph">
+                    O Hospital do Juquery, em Franco da Rocha (SP), é símbolo de transformação no cuidado à saúde mental. Fundado no início do século XX, foi palco de mudanças profundas na forma de tratar o sofrimento psíquico e pioneiro ao reconhecer a arte como linguagem terapêutica.
+                </div>
+                <div class="context-paragraph">
+                    Dentro de seus muros nasceu o <strong>Museu de Arte Osório César (MAOC)</strong>, homenagem ao psiquiatra que acreditava no poder da arte como escuta e cuidado. No MAOC, obras de pacientes revelavam universos subjetivos que dificilmente seriam acessados apenas pela fala.
+                </div>
+                <div class="context-quote">
+                    “No Juquery, o desenho e a pintura não eram só atividades ocupacionais — eram canais legítimos de expressão de emoções, memórias e desejos.”
+                </div>
+                <div class="context-paragraph">
+                    A arteterapia dignificou a experiência do paciente, humanizando o tratamento e valorizando a escuta sensível. O legado de Osório César e outros pioneiros mostra que a arte pode ser cura, acolhimento e linguagem para quem, muitas vezes, foi silenciado.
+                </div>
+                <div class="context-highlight">
+                    <MudIcon Icon="@Icons.Material.Filled.Lightbulb" Color="Color.Warning" />
+                    Inspiração para o futuro: tecnologia a serviço do cuidado humano
+                </div>
+                <div class="context-paragraph">
+                    É dessa herança que nasce o <strong>EmocionAI</strong>: unir tecnologia e sensibilidade para ampliar o olhar sobre a saúde emocional de crianças — assim como a arte, um dia, abriu caminhos para a escuta e o cuidado.
+                </div>
+            </div>
+        </MudItem>
+
+        <!-- A Ideia do Projeto -->
+        <MudItem xs="12" class="tech-section">
+            <div class="idea-card">
+                <div class="idea-title">
+                    <MudIcon Icon="@Icons.Material.Filled.Psychology" Color="Color.Secondary" Size="Size.Large" />
+                    Decifrando Emoções com Arte e Inteligência Artificial
+                </div>
+                <div class="idea-sub">
+                    <MudIcon Icon="@Icons.Material.Filled.Person" Color="Color.Primary" Class="me-1" />
+                    Um projeto experimental inspirado pelo Juquery, usando IA para analisar desenhos infantis.
+                </div>
+                <div class="idea-paragraph">
+                    O EmocionAI nasceu do desejo de unir tecnologia, educação e saúde emocional. Utilizando Azure Custom Vision, foi criado um modelo de visão computacional capaz de analisar desenhos infantis e identificar emoções predominantes.
+                </div>
+                <div class="idea-paragraph">
+                    <strong>Como funciona:</strong>
+                </div>
+                <ul class="idea-list">
+                    <li>A criança faz um desenho (em papel ou digital).</li>
+                    <li>O profissional da saúde ou educador sobe a imagem no sistema.</li>
+                    <li>A IA analisa traços, formas e expressões visuais, retornando uma possível emoção predominante.</li>
+                </ul>
+                <div class="idea-paragraph">
+                    Atualmente, o modelo reconhece quatro emoções básicas:
+                </div>
+                <div class="idea-emotions">
+                    <span class="emotion-badge">
+                        <MudIcon Icon="@Icons.Material.Filled.SentimentVerySatisfied" Color="Color.Success" /> Felicidade
+                    </span>
+                    <span class="emotion-badge">
+                        <MudIcon Icon="@Icons.Material.Filled.SentimentVeryDissatisfied" Color="Color.Info" /> Tristeza
+                    </span>
+                    <span class="emotion-badge">
+                        <MudIcon Icon="@Icons.Material.Filled.Whatshot" Color="Color.Error" /> Raiva
+                    </span>
+                    <span class="emotion-badge">
+                        <MudIcon Icon="@Icons.Material.Filled.PriorityHigh" Color="Color.Warning" /> Medo
+                    </span>
+                </div>
+                <div class="idea-paragraph">
+                    Com mais dados e validação, a ideia é expandir para emoções como ansiedade, surpresa, calma ou confusão.
+                </div>
+
+                <div class="benefits-highlight">
+                    <div class="benefits-title">
+                        <MudIcon Icon="@Icons.Material.Filled.Star" Color="Color.Secondary" />
+                        Por que isso importa? Benefícios para a sociedade
+                    </div>
+                    <ul class="benefits-list">
+                        <li>
+                            <strong>Apoio a profissionais de saúde mental:</strong> psicólogos e terapeutas podem interpretar estados emocionais de forma mais rápida e assertiva.
+                        </li>
+                        <li>
+                            <strong>Ferramenta complementar na arteterapia:</strong> potencializa o uso da arte como meio de expressão e diagnóstico.
+                        </li>
+                        <li>
+                            <strong>Identificação precoce de sofrimento psicológico:</strong> ajuda a detectar sinais de traumas, abusos ou sofrimento emocional.
+                        </li>
+                        <li>
+                            <strong>Inclusão e escuta ativa:</strong> dá voz ao universo interno da criança, mesmo quando ela não consegue se expressar verbalmente.
+                        </li>
+                        <li>
+                            <strong>Prevenção e acolhimento:</strong> tecnologia a serviço do cuidado humano, promovendo bem-estar e prevenção em saúde mental infantil.
+                        </li>
+                        <li>
+                            <strong>Inovação social:</strong> democratiza o acesso a ferramentas de análise emocional, beneficiando escolas, clínicas e projetos sociais.
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="idea-paragraph">
+                    O projeto está em desenvolvimento, mas já carrega um objetivo claro: usar a tecnologia para potencializar o cuidado humano. Assim como a arte foi aliada no Juquery, a IA pode ser uma nova ferramenta para escuta, prevenção e acolhimento.
+                </div>
+            </div>
+        </MudItem>
+    </MudGrid>
+</MudContainer>

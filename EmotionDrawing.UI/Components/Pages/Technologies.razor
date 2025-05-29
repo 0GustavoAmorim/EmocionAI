@@ -1,0 +1,141 @@
+﻿@page "/tecnologias"
+@rendermode InteractiveServer
+
+<PageTitle>Tecnologias Utilizadas - EmocionAI</PageTitle>
+
+<style>
+    body, .tech-bg {
+        background: linear-gradient(120deg, #f5f9ff 60%, #ffe7fa 100%);
+        min-height: 100vh;
+    }
+
+    .techused-section {
+        margin-top: 32px;
+    }
+
+    .techused-title {
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        color: #8c52ff;
+        font-size: 2rem;
+        margin-bottom: 18px;
+        text-shadow: 2px 2px 8px #e0d6ff;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .techused-subtitle {
+        color: #5b3e96;
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+    }
+
+    .techused-paragraph {
+        color: #7a5fa0;
+        font-size: 1.08rem;
+        margin-bottom: 16px;
+        line-height: 1.7;
+    }
+
+    .techused-list {
+        color: #5b3e96;
+        font-size: 1.08rem;
+        margin-bottom: 16px;
+        margin-left: 0;
+        padding-left: 1.2em;
+    }
+
+        .techused-list li {
+            margin-bottom: 6px;
+            list-style: disc;
+        }
+
+    .techused-highlight {
+        background: #f3eaff;
+        border-left: 6px solid #8c52ff;
+        border-radius: 16px;
+        padding: 18px 24px;
+        margin: 18px 0;
+        color: #5b3e96;
+        font-size: 1.12rem;
+        font-family: 'Comic Sans MS', 'Baloo 2', cursive, sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+</style>
+
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="tech-bg">
+    <MudGrid>
+        <MudItem xs="12" class="techused-section">
+            <div class="techused-title">
+                <MudIcon Icon="@Icons.Material.Filled.Build" Color="Color.Secondary" Size="Size.Large" />
+                Tecnologias Utilizadas no EmocionAI
+            </div>
+            <div class="techused-paragraph">
+                O EmocionAI combina tecnologia de ponta, ciência de dados e design para criar uma experiência inovadora de análise emocional de desenhos infantis.
+            </div>
+        </MudItem>
+
+        <MudItem xs="12" class="techused-section">
+            <div class="techused-subtitle">
+                <MudIcon Icon="@Icons.Material.Filled.DataObject" Color="Color.Primary" />
+                Dataset Utilizado para Treinamento
+            </div>
+            <div class="techused-paragraph">
+                O modelo foi treinado com um conjunto de imagens de desenhos infantis, categorizados por emoções como felicidade, tristeza, raiva e medo. O dataset foi balanceado para garantir diversidade e ética no uso dos dados.
+            </div>
+        </MudItem>
+
+        <MudItem xs="12" class="techused-section">
+            <div class="techused-subtitle">
+                <MudIcon Icon="@Icons.Material.Filled.AutoAwesome" Color="Color.Secondary" />
+                Processo de Treinamento do Modelo
+            </div>
+            <div class="techused-paragraph">
+                Utilizamos o <strong>Azure Custom Vision</strong> para treinar um modelo de classificação de imagens. O processo envolveu:
+            </div>
+            <ul class="techused-list">
+                <li>Upload das imagens rotuladas no portal do Custom Vision</li>
+                <li>Configuração das tags de emoção</li>
+                <li>Validação cruzada e testes com imagens inéditas</li>
+            </ul>
+        </MudItem>
+
+        <MudItem xs="12" class="techused-section">
+            <div class="techused-subtitle">
+                <MudIcon Icon="@Icons.Material.Filled.Cloud" Color="Color.Info" />
+                O que é o Azure Custom Vision?
+            </div>
+            <div class="techused-paragraph">
+                O Azure Custom Vision é um serviço de IA da Microsoft que permite treinar, implantar e melhorar modelos de classificação de imagens de forma simples e intuitiva, sem necessidade de conhecimento avançado em machine learning.
+            </div>
+        </MudItem>
+
+        <MudItem xs="12" class="techused-section">
+            <div class="techused-subtitle">
+                <MudIcon Icon="@Icons.Material.Filled.Code" Color="Color.Primary" />
+                Stack Tecnológica e Bibliotecas
+            </div>
+            <ul class="techused-list">
+                <li><strong>Blazor .NET 9</strong> – Frontend interativo e moderno</li>
+                <li><strong>MudBlazor</strong> – Componentes visuais e responsivos</li>
+            </ul>
+        </MudItem>
+
+        <MudItem xs="12" class="techused-section">
+            <div class="techused-subtitle">
+                <MudIcon Icon="@Icons.Material.Filled.TipsAndUpdates" Color="Color.Warning" />
+                Sugestões de Outras Informações para Incluir
+            </div>
+            <ul class="techused-list">
+                <li>Desafios enfrentados no treinamento do modelo</li>
+                <li>Como a privacidade dos dados é garantida</li>
+                <li>Como funciona a integração entre frontend e IA</li>
+                <li>Roadmap de melhorias futuras</li>
+                <li>Referências e links para documentação</li>
+            </ul>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
