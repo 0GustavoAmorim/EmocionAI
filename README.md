@@ -36,6 +36,14 @@ Atualmente, o modelo reconhece **quatro emoções básicas**:
 - 😠 **Raiva**
 - 😨 **Medo**
 
+## Vídeo demonstrativo
+
+https://github.com/user-attachments/assets/8d2028fa-468b-46ee-b227-c189c7d12bf5
+
+---
+
+### Futuro
+
 Em futuras versões, pretendo incluir emoções mais complexas, como **ansiedade**, **tédio**, **confusão**, **surpresa** e **vergonha**, inspirando-se na evolução dos sentimentos retratada em *Divertidamente*.
 O modelo que estou usando até o momento foi treinado com apenas 836 imagens de desenhos, sendo eles:
 
@@ -116,7 +124,8 @@ Seu propósito é democratizar o acesso à análise emocional e apoiar profissio
 - Museu de Arte Osório César (MAOC) — Franco da Rocha/SP  
 - Inspiração em *Osório César*, psiquiatra pioneiro da arteterapia no Brasil  
 - Projeto desenvolvido por [**Gustavo Amorim**](https://github.com/0GustavoAmorim)  
-- Texto adaptado da [postagem original no LinkedIn]([https://www.linkedin.com/feed/update/urn:li:activity:7333988818846412800/](https://www.linkedin.com/posts/gustavo-amorim-silva_decifrando-emo%C3%A7%C3%B5es-com-arte-e-intelig%C3%AAncia-activity-7333988818846412800-rRHd?utm_source=share&utm_medium=member_desktop&rcm=ACoAADokX8IB7-2ediWLKzAtYPTVXzbHxOTP-6Q))
+- Texto adaptado da [postagem original no LinkedIn](https://www.linkedin.com/posts/gustavo-amorim-silva_decifrando-emo%C3%A7%C3%B5es-com-arte-e-intelig%C3%AAncia-activity-7333988818846412800-rRHd?utm_source=share&utm_medium=member_desktop&rcm=ACoAADokX8IB7-2ediWLKzAtYPTVXzbHxOTP-6Q)
+
 
 ---
 
