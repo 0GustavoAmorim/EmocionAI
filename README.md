@@ -6,7 +6,7 @@
 
 ## Sobre o Projeto
 
-O **EmotionDrawing** (também chamado de **EmocionAI!**) é uma aplicação experimental que une **Inteligência Artificial**, **arte** e **cuidado emocional**.  
+O **EmocionAI** é uma aplicação experimental que une **Inteligência Artificial**, **arte** e **cuidado emocional**.  
 Através de técnicas de **Visão Computacional** e **Machine Learning**, o sistema é capaz de **analisar desenhos infantis** e **identificar emoções predominantes** expressas neles, como felicidade, tristeza, raiva e medo.
 
 O projeto nasceu da vontade de **usar tecnologia como aliada da empatia**, inspirado pela história do **Museu de Arte Osório César (MAOC)**, em Franco da Rocha (SP), cidade marcada por sua ligação com a saúde mental e o antigo Hospital do Juquery.
