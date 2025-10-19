@@ -1,4 +1,4 @@
-# 🎨 EmotionDrawing — Decifrando Emoções com Arte e Inteligência Artificial
+# 🎨 EmocionAI — Decifrando Emoções com Arte e Inteligência Artificial
 
 > “A arte é a expressão mais pura da alma humana e agora a IA pode nos ajudar a ouvi-la.”
 
